@@ -1,7 +1,7 @@
 FROM ubuntu:20.04 as build
 
 ARG APT_PROXY
-ARG HDHOMERUN_VERSION=20210624
+ARG HDHOMERUN_VERSION=20220303
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN if [ -n "${APT_PROXY}" ]; then echo "Acquire::HTTP::Proxy \"${APT_PROXY}\";\nAcquire::HTTPS::Proxy false;\n" >> /etc/apt/apt.conf.d/01proxy; cat /etc/apt/apt.conf.d/01proxy; fi && \
@@ -26,7 +26,7 @@ RUN cd /usr/src &&\
 FROM ubuntu:20.04
 
 ARG APT_PROXY
-ARG HDHOMERUN_FIRMWARE=20200225
+ARG HDHOMERUN_FIRMWARE=20210422
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN if [ -n "${APT_PROXY}" ]; then echo "Acquire::HTTP::Proxy \"${APT_PROXY}\";\nAcquire::HTTPS::Proxy false;\n" >> /etc/apt/apt.conf.d/01proxy; cat /etc/apt/apt.conf.d/01proxy; fi && \
@@ -49,7 +49,7 @@ ADD https://download.silicondust.com/hdhomerun/hdhomerun4_atsc_firmware_${HDHOME
 ADD https://download.silicondust.com/hdhomerun/hdhomeruntc_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
 ADD https://download.silicondust.com/hdhomerun/hdhomerun5_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
 ADD https://download.silicondust.com/hdhomerun/hdhomerun_dvr_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
-#ADD https://download.silicondust.com/hdhomerun/hdhomerun_dvr_atsc3_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
+ADD https://download.silicondust.com/hdhomerun/hdhomerun_dvr_atsc3_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
 
 COPY --from=build /usr/src/libhdhomerun/hdhomerun_config /usr/bin/
 
