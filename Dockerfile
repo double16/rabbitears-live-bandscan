@@ -55,8 +55,9 @@ COPY --from=build /usr/src/libhdhomerun/hdhomerun_config /usr/bin/
 
 # https://markjcolombo.com/scan_tuner.txt with modifications
 COPY scan_tuner.pl /usr/bin/
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh /usr/bin/scan_tuner.pl
+COPY entrypoint.sh healthcheck.sh /
+RUN chmod +x /entrypoint.sh /healthcheck.sh /usr/bin/scan_tuner.pl
 VOLUME /data
 
 CMD [ "/entrypoint.sh" ]
+HEALTHCHECK CMD /healthcheck.sh
