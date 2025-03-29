@@ -1,7 +1,7 @@
-FROM ubuntu:20.04 as build
+FROM ubuntu:22.04 AS build
 
 ARG APT_PROXY
-ARG HDHOMERUN_VERSION=20220303
+ARG HDHOMERUN_VERSION=20231214
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN if [ -n "${APT_PROXY}" ]; then echo "Acquire::HTTP::Proxy \"${APT_PROXY}\";\nAcquire::HTTPS::Proxy false;\n" >> /etc/apt/apt.conf.d/01proxy; cat /etc/apt/apt.conf.d/01proxy; fi && \
@@ -23,10 +23,10 @@ RUN cd /usr/src &&\
     ./configure &&\
     make
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ARG APT_PROXY
-ARG HDHOMERUN_FIRMWARE=20210422
+ARG HDHOMERUN_FIRMWARE=20231214
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN if [ -n "${APT_PROXY}" ]; then echo "Acquire::HTTP::Proxy \"${APT_PROXY}\";\nAcquire::HTTPS::Proxy false;\n" >> /etc/apt/apt.conf.d/01proxy; cat /etc/apt/apt.conf.d/01proxy; fi && \
@@ -42,11 +42,11 @@ RUN if [ -n "${APT_PROXY}" ]; then echo "Acquire::HTTP::Proxy \"${APT_PROXY}\";\
     rm -f /etc/apt/apt.conf.d/01proxy &&\
     rm -rf /tmp/*
 
-ADD https://download.silicondust.com/hdhomerun/hdhomerun_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
-ADD https://download.silicondust.com/hdhomerun/hdhomerun3_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
-ADD https://download.silicondust.com/hdhomerun/hdhomerun3_cablecard_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
-ADD https://download.silicondust.com/hdhomerun/hdhomerun4_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
-ADD https://download.silicondust.com/hdhomerun/hdhomeruntc_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
+ADD https://download.silicondust.com/hdhomerun/hdhomerun_atsc_firmware_20210422.bin /opt/
+ADD https://download.silicondust.com/hdhomerun/hdhomerun3_atsc_firmware_20210422.bin /opt/
+ADD https://download.silicondust.com/hdhomerun/hdhomerun3_cablecard_firmware_20210422.bin /opt/
+ADD https://download.silicondust.com/hdhomerun/hdhomerun4_atsc_firmware_20210422.bin /opt/
+ADD https://download.silicondust.com/hdhomerun/hdhomeruntc_atsc_firmware_20210422.bin /opt/
 ADD https://download.silicondust.com/hdhomerun/hdhomerun5_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
 ADD https://download.silicondust.com/hdhomerun/hdhomerun_dvr_atsc_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
 ADD https://download.silicondust.com/hdhomerun/hdhomerun_dvr_atsc3_firmware_${HDHOMERUN_FIRMWARE}.bin /opt/
